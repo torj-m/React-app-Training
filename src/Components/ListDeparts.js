@@ -1,4 +1,5 @@
 import React from 'react';
+import FormAjout from './FormAjout';
 export default class ListDeparts extends React.Component {
     constructor(props){
         super(props);
@@ -11,14 +12,11 @@ export default class ListDeparts extends React.Component {
             nom: ''
         }
     };
-    affiche=(event)=>{this.setState({ nom:event.target.value})}
-    addDepartment=(event)=>{
-        event.preventDefault();
-        
-        this.setState({nom: event.target.value})
+   
+    addDepartment=(d)=>{
         let i = this.state.departs.length+1
         this.setState({
-            departs: [...this.state.departs, {id: i ,nom: this.state.nom}]
+            departs: [...this.state.departs, {id: i ,nom: d}]
         })
     }  
     delete=(i)=>{
@@ -28,10 +26,10 @@ export default class ListDeparts extends React.Component {
     }
     render() { 
         return (
-        <div>
+        <div>   
+                
                 <h2>Liste des départements: </h2> <br />
-                <input type="text" onChange={this.affiche}/>
-                <button onClick={this.addDepartment}>Ajouter département</button>
+                <FormAjout newDept={this.addDepartment}/>
                 <div>
                     {this.state.departs.map((e,i)=> <div>{e.id}.   {e.nom}   <button onClick={()=>this.delete(i)}>X</button></div>)}
                 </div>
